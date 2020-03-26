@@ -1,5 +1,17 @@
 # Put some miscellaneous rules here
 
+# Build system colors
+
+ifneq ($(BUILD_WITH_COLORS),0)
+  CL_RED="\033[31m"
+  CL_GRN="\033[32m"
+  CL_YLW="\033[33m"
+  CL_BLU="\033[34m"
+  CL_MAG="\033[35m"
+  CL_CYN="\033[36m"
+  CL_RST="\033[0m"
+endif
+
 # HACK: clear LOCAL_PATH from including last build target before calling
 # intermedites-dir-for
 LOCAL_PATH := $(BUILD_SYSTEM)
@@ -1910,7 +1922,7 @@ $(RECOVERY_INSTALL_OTA_KEYS): $(SOONG_ZIP) $(OTA_PUBLIC_KEYS) $(extra_keys)
 RECOVERYIMAGE_ID_FILE := $(PRODUCT_OUT)/recovery.id
 
 define build-recoveryramdisk
-  $(hide) ./vendor/aosp/tools/changelog.sh
+  $(hide) ./vendor/freaky/tools/changelog.sh
   $(hide) mv $(PRODUCT_OUT)/Changelog.txt $(PRODUCT_OUT)/$(CUSTOM_VERSION)-Changelog.txt
   @echo ----- Making recovery image ------
   $(hide) mkdir -p $(TARGET_RECOVERY_OUT)
@@ -2337,7 +2349,7 @@ endif
 
 # $(1): output file
 define build-systemimage-target
-  $(hide) ./vendor/aosp/tools/changelog.sh
+  $(hide) ./vendor/freaky/tools/changelog.sh
   $(hide) mv $(PRODUCT_OUT)/Changelog.txt $(PRODUCT_OUT)/$(CUSTOM_VERSION)-Changelog.txt
   @echo "Target system fs image: $(1)"
   $(call create-system-vendor-symlink)
@@ -4314,8 +4326,38 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) \
 	@echo "Package OTA: $@"
 	$(call build-ota-package-target,$@,-k $(KEY_CERT_PAIR) --output_metadata_path $(INTERNAL_OTA_METADATA))
 
-.PHONY: otapackage
+TARGET_PACKAGE := $(PRODUCT_OUT)/$(CUSTOM_VERSION).zip
+
+.PHONY: otapackage bacon freaky
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
+bacon: otapackage
+bacon: freaky
+freaky: otapackage
+	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(TARGET_PACKAGE)
+	$(hide) $(MD5SUM) $(TARGET_PACKAGE) > $(TARGET_PACKAGE).md5sum
+	@echo -e ${CL_RST} ""
+	echo -e ${CL_RED}"  █████▒██▀███  ▓█████ ▄▄▄       ██ ▄█▀▓██   ██▓ ▒█████    ██████  "${CL_RED}
+	echo -e ${CL_CYN}"▓██   ▒▓██ ▒ ██▒▓█   ▀▒████▄     ██▄█▒  ▒██  ██▒▒██▒  ██▒▒██    ▒  "${CL_RST}
+	echo -e ${CL_RED}"▒████ ░▓██ ░▄█ ▒▒███  ▒██  ▀█▄  ▓███▄░   ▒██ ██░▒██░  ██▒░ ▓██▄    "${CL_RED}
+	echo -e ${CL_CYN}"░▓█▒  ░▒██▀▀█▄  ▒▓█  ▄░██▄▄▄▄██ ▓██ █▄   ░ ▐██▓░▒██   ██░  ▒   ██▒ "${CL_RST}
+	echo -e ${CL_RED}"░▒█░   ░██▓ ▒██▒░▒████▒▓█   ▓██▒▒██▒ █▄  ░ ██▒▓░░ ████▓▒░▒██████▒▒ "${CL_RED}
+	echo -e ${CL_CYN}" ▒ ░   ░ ▒▓ ░▒▓░░░ ▒░ ░▒▒   ▓▒█░▒ ▒▒ ▓▒   ██▒▒▒ ░ ▒░▒░▒░ ▒ ▒▓▒ ▒ ░ "${CL_RST}
+	echo -e ${CL_RED}" ░       ░▒ ░ ▒░ ░ ░  ░ ▒   ▒▒ ░░ ░▒ ▒░ ▓██ ░▒░   ░ ▒ ▒░ ░ ░▒  ░ ░ "${CL_RED}
+	echo -e ${CL_CYN}" ░ ░     ░░   ░    ░    ░   ▒   ░ ░░ ░  ▒ ▒ ░░  ░ ░ ░ ▒  ░  ░  ░   "${CL_RST}
+	echo -e ${CL_RED}"          ░        ░  ░     ░  ░░  ░    ░ ░         ░ ░        ░   "${CL_RED}
+	echo -e ${CL_CYN}"                                        ░ ░                        "${CL_RST}
+	@echo -e ${CL_RED} "                         Why  So  Serious?      " ${CL_RED}
+	@echo -e ${CL_CYN} "                        #  Still  Alive  #      " ${CL_RST}
+	@echo -e ""
+	@echo -e ${CL_YLW} "   Hold Your Pants Nigga and Get Freaky With The FreakyOS!!  " ${CL_YLW}
+	@echo -e ${CL_RST} "" ${CL_RST}
+	@echo -e ${CL_BLD}${CL_RED}"===============================-Package complete-==============================="${CL_RED}
+	@echo -e ${CL_BLD}${CL_YLW}"Zip: "${CL_YLW} $(TARGET_PACKAGE)${CL_RST}
+	@echo -e ${CL_BLD}${CL_YLW}"MD5: "${CL_YLW}" `cat $(TARGET_PACKAGE).md5sum | awk '{print $$1}' `"${CL_RST}
+	@echo -e ${CL_BLD}${CL_YLW}"Size:"${CL_YLW}" `du -sh $(TARGET_PACKAGE) | awk '{print $$1}' `"${CL_RST}
+	@echo -e ${CL_BLD}${CL_YLW}"Integer Value:"${CL_YLW}" `wc -c $(TARGET_PACKAGE) | awk '{print $$1}' `"${CL_RST}
+	@echo -e ${CL_BLD}${CL_YLW}"TimeStamp:"${CL_YLW}" `cat $(PRODUCT_OUT)/system/build.prop | grep ro.build.date.utc | cut -d'=' -f2 | awk '{print $$1}' `"${CL_RST}
+	@echo -e ${CL_BLD}${CL_RED}"================================================================================"${CL_RST}
 
 ifeq ($(BOARD_BUILD_RETROFIT_DYNAMIC_PARTITIONS_OTA_PACKAGE),true)
 name := $(TARGET_PRODUCT)

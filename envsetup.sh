@@ -48,7 +48,7 @@ EOF
     local T=$(gettop)
     local A=""
     local i
-    for i in `cat $T/build/envsetup.sh $T/vendor/aosp/build/envsetup.sh | sed -n "/^[[:blank:]]*function /s/function \([a-z_]*\).*/\1/p" | sort | uniq`; do
+    for i in `cat $T/build/envsetup.sh $T/vendor/freaky/build/envsetup.sh | sed -n "/^[[:blank:]]*function /s/function \([a-z_]*\).*/\1/p" | sort | uniq`; do
       A="$A $i"
     done
     echo $A
@@ -59,8 +59,8 @@ function build_build_var_cache()
 {
     local T=$(gettop)
     # Grep out the variable names from the script.
-    cached_vars=(`cat $T/build/envsetup.sh $T/vendor/aosp/build/envsetup.sh | tr '()' '  ' | awk '{for(i=1;i<=NF;i++) if($i~/get_build_var/) print $(i+1)}' | sort -u | tr '\n' ' '`)
-    cached_abs_vars=(`cat $T/build/envsetup.sh $T/vendor/aosp/build/envsetup.sh | tr '()' '  ' | awk '{for(i=1;i<=NF;i++) if($i~/get_abs_build_var/) print $(i+1)}' | sort -u | tr '\n' ' '`)
+    cached_vars=(`cat $T/build/envsetup.sh $T/vendor/freaky/build/envsetup.sh | tr '()' '  ' | awk '{for(i=1;i<=NF;i++) if($i~/get_build_var/) print $(i+1)}' | sort -u | tr '\n' ' '`)
+    cached_abs_vars=(`cat $T/build/envsetup.sh $T/vendor/freaky/build/envsetup.sh | tr '()' '  ' | awk '{for(i=1;i<=NF;i++) if($i~/get_abs_build_var/) print $(i+1)}' | sort -u | tr '\n' ' '`)
     # Call the build system to dump the "<val>=<value>" pairs as a shell script.
     build_dicts_script=`\builtin cd $T; build/soong/soong_ui.bash --dumpvars-mode \
                         --vars="${cached_vars[*]}" \
@@ -142,8 +142,8 @@ function check_product()
         echo "Couldn't locate the top of the tree.  Try setting TOP." >&2
         return
     fi
-    if (echo -n $1 | grep -q -e "^aosp_") ; then
-        CUSTOM_BUILD=$(echo -n $1 | sed -e 's/^aosp_//g')
+    if (echo -n $1 | grep -q -e "^freaky_") ; then
+        CUSTOM_BUILD=$(echo -n $1 | sed -e 's/^freaky_//g')
         export BUILD_NUMBER=$( (date +%s%N ; echo $CUSTOM_BUILD; hostname) | openssl sha1 | sed -e 's/.*=//g; s/ //g' | cut -c1-10 )
     else
         CUSTOM_BUILD=
@@ -581,10 +581,32 @@ function add_lunch_combo()
 function print_lunch_menu()
 {
     local uname=$(uname)
-    echo
-    echo "You're building on" $uname
-    echo
-    echo "Lunch menu... pick a combo:"
+
+    echo ""
+    tput setaf 1;
+    tput bold;
+    echo ""
+    echo "▄████  █▄▄▄▄ ▄███▄   ██   █  █▀ ▀▄    ▄ ████▄    ▄▄▄▄▄   "
+    echo "█▀   ▀ █  ▄▀ █▀   ▀  █ █  █▄█     █  █  █   █   █     ▀▄ "
+    echo "█▀▀    █▀▀▌  ██▄▄    █▄▄█ █▀▄      ▀█   █   █ ▄  ▀▀▀▀▄   "
+    echo "█      █  █  █▄   ▄▀ █  █ █  █     █    ▀████  ▀▄▄▄▄▀    "
+    echo " █       █   ▀███▀      █   █    ▄▀                      "
+    echo "  ▀     ▀              █   ▀                             "
+    echo ""                     ▀                                  
+    echo ""
+    echo "          Why  So  Serious?      "
+    echo "         #  Still  Alive  #      "
+    echo ""
+
+    tput sgr0;
+    echo ""
+    echo "                      Welcome to the device menu                      "
+    echo ""
+    tput bold;
+    echo "     Below are all the devices currently available to be compiled     "
+    tput sgr0;
+    echo ""
+
 
     local i=1
     local choice
@@ -624,12 +646,15 @@ function lunch()
         fi
     else
         print_lunch_menu
-        echo -n "Which would you like? "
+        tput setaf 2;
+        tput bold;
+        echo -n "Go ahead and pick a number for your lunch combo\(freaky_device-userdebug\)... "
+        tput sgr0;
         read answer
         if ! (echo -n $answer | grep -q -e "^[0-9][0-9]*$")
         then
-            echo
-            echo "Invalid lunch combo"
+            echo ''
+            echo "Hey Nigga are you in your senses? Select the correct number."
             return 1
         fi
     fi
@@ -687,13 +712,13 @@ function lunch()
         # if we can't find a product, try to grab it
         T=$(gettop)
         cd $T > /dev/null
-        vendor/aosp/build/tools/roomservice.py $product
+        vendor/freaky/build/tools/roomservice.py $product
         cd - > /dev/null
         check_product $product
     else
         T=$(gettop)
         cd $T > /dev/null
-        vendor/aosp/build/tools/roomservice.py $product true
+        vendor/freaky/build/tools/roomservice.py $product true
         cd - > /dev/null
     fi
 
@@ -1677,4 +1702,4 @@ fi
 
 export ANDROID_BUILD_TOP=$(gettop)
 
-. $ANDROID_BUILD_TOP/vendor/aosp/build/envsetup.sh
+. $ANDROID_BUILD_TOP/vendor/freaky/build/envsetup.sh
