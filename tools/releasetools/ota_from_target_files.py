@@ -819,16 +819,50 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
 
   script.AppendExtra("ifelse(is_mounted(\"/system\"), unmount(\"/system\"));")
 
-  is_plus = target_info.GetBuildProp("org.pixelexperience.version").endswith(
+  is_plus = target_info.GetBuildProp("org.freaky.version").endswith(
         "_plus")
   android_version = target_info.GetBuildProp("ro.build.version.release")
   build_id = target_info.GetBuildProp("ro.build.id")
-  build_date = target_info.GetBuildProp("org.pixelexperience.build_date")
+  build_date = target_info.GetBuildProp("org.freaky.build_date")
   security_patch = target_info.GetBuildProp("ro.build.version.security_patch")
-  device = target_info.GetBuildProp("org.pixelexperience.device")
-  script.PrintPixelExperienceBanner(is_plus, android_version, build_id, build_date,
-                                  security_patch, device)
+  device = target_info.GetBuildProp("org.freaky.device")
+  manufacturer = target_info.GetBuildProp("ro.product.manufacturer")    
+  buildtype = target_info.GetBuildProp("org.freaky.build_type")
+  buildhst = target_info.GetBuildProp("ro.build.host")
+  maintainer = target_info.GetBuildProp("ro.build.user")
+  sdkver = target_info.GetBuildProp("ro.build.version.sdk")
+  osname = target_info.GetBuildProp("org.build.osname")
+  osver = target_info.GetBuildProp("org.freaky.build_version")
 
+  script.Print("                                        ");
+  script.Print(" (                             )  (     ");
+  script.Print(" )\ )                 )     ( /(  )\ )  ");
+  script.Print("(()/( (     (    ) ( /((    )\())(()/(  ");
+  script.Print(" /(_)))(   ))\( /( )\())\ )((_)\  /(_)) ");
+  script.Print("(_))_(()\ /((_)(_)|(_)(()/(  ((_)(_))   ");
+  script.Print("| |_  ((_|_))((_)_| |(_)(_))/ _ \/ __|  ");
+  script.Print("| __|| '_/ -_) _\` | / / || | (_) \__ \ ");
+  script.Print("|_|  |_| \___\__,_|_\_\\_, |\___/|___/  ");
+  script.Print("                       |__/             ");
+  script.Print("             By THE FREAKS              ");
+  script.Print("                                        ");
+  script.Print("            WHY SO SERIOUS ?            ");
+  script.Print("             STILL ALIVE !              ");
+  script.Print(" ############### INFO ###############             "               );
+  script.Print(" OS Name: %s"%(osname)                                            );
+  script.Print(" OS Version: %s"%(osver)                                          );
+  script.Print(" Build Type: %s"%(buildtype)                                      );
+  script.Print(" Build id: %s"%(build_id)                                         );
+  script.Print(" Android Version: %s"%(android_version)                           );
+  script.Print(" Security Patch: %s"%(security_patch)                             );
+  script.Print(" SdK Version: %s"%(sdkver)                                        );
+  script.Print(" Build Date: %s"%(build_date)                                     );
+  script.Print(" Build Host: %s"%(buildhst)                                       );
+  script.Print(" Maintainer: %s"%(maintainer)                                     );
+  script.Print(" Device: %s"%(device)                                             );
+  script.Print(" Manufacturer: %s"%(manufacturer)                                 );
+  script.Print(" ####################################             "               );
+  
   device_specific.FullOTA_InstallBegin()
 
   if CopyInstallTools(output_zip):
