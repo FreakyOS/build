@@ -1387,14 +1387,14 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   osname = target_info.GetBuildProp("org.build.osname")
   osver = target_info.GetBuildProp("org.freaky.build_version")
 
-  script.Print("						");
-  script.Print(" ____,____, ____, ____,__, ,_  _,____, ____,	");
-  script.Print("(-|_,(-|__)(-|_, (-/_|( |_/(-\_/(-/  \(-(__ 	");
-  script.Print(" _|   _|  \,_|__,_/  |,_| \, _|, _\__/,____)	");
-  script.Print("(    (     (    (     (     (   (     (     	");
-  script.Print("	    Why  So  Serious? 			");
-  script.Print("	   #  Still  Alive  #			");
-  script.Print(" ############### INFO ###############             "               );
+  script.Print("╔═╗┬─┐┌─┐┌─┐┬┌─┬ ┬╔═╗╔═╗");
+  script.Print("╠╣ ├┬┘├┤ ├─┤├┴┐└┬┘║ ║╚═╗");
+  script.Print("╚  ┴└─└─┘┴ ┴┴ ┴ ┴ ╚═╝╚═╝");
+  script.Print("      By THE FREAKS     ");
+  script.Print("                        ");
+  script.Print("     WHY SO SERIOUS?    ");
+  script.Print("      STILL ALIVE!      ");
+  script.Print(" ############ INFO ############  ");
   script.Print(" OS Name: %s"%(osname)                                            );
   script.Print(" OS Version: %s"%(osver)                                          );
   script.Print(" Build Type: %s"%(buildtype)                                      );
