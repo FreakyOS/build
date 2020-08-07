@@ -1379,7 +1379,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   build_date = target_info.GetBuildProp("org.freaky.build_date")
   security_patch = target_info.GetBuildProp("ro.build.version.security_patch")
   device = target_info.GetBuildProp("org.freaky.device")
-  manufacturer = target_info.GetBuildProp("ro.product.manufacturer")    
+  manufacturer = target_info.GetBuildProp("ro.product.manufacturer")
   buildtype = target_info.GetBuildProp("org.freaky.build_type")
   buildhst = target_info.GetBuildProp("ro.build.host")
   maintainer = target_info.GetBuildProp("ro.build.user")
@@ -1387,13 +1387,13 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   osname = target_info.GetBuildProp("org.build.osname")
   osver = target_info.GetBuildProp("org.freaky.build_version")
 
-  script.Print("						");
-  script.Print(" ____,____, ____, ____,__, ,_  _,____, ____,	");
-  script.Print("(-|_,(-|__)(-|_, (-/_|( |_/(-\_/(-/  \(-(__ 	");
-  script.Print(" _|   _|  \,_|__,_/  |,_| \, _|, _\__/,____)	");
-  script.Print("(    (     (    (     (     (   (     (     	");
-  script.Print("	    Why  So  Serious? 			");
-  script.Print("	   #  Still  Alive  #			");
+  script.Print("╔═╗┬─┐┌─┐┌─┐┬┌─┬ ┬╔═╗╔═╗");
+  script.Print("╠╣ ├┬┘├┤ ├─┤├┴┐└┬┘║ ║╚═╗");
+  script.Print("╚  ┴└─└─┘┴ ┴┴ ┴ ┴ ╚═╝╚═╝");
+  script.Print("      By THE FREAKS     ");
+  script.Print("                        ");
+  script.Print("     WHY SO SERIOUS?    ");
+  script.Print("      STILL ALIVE!      ");
   script.Print(" ############### INFO ###############             "               );
   script.Print(" OS Name: %s"%(osname)                                            );
   script.Print(" OS Version: %s"%(osver)                                          );
