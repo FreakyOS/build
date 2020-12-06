@@ -819,8 +819,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
 
   script.AppendExtra("ifelse(is_mounted(\"/system\"), unmount(\"/system\"));")
 
-  is_plus = target_info.GetBuildProp("org.freaky.version").endswith(
-        "_plus")
+  freaky_ver = target_info.GetBuildProp("org.freaky.version")
   android_version = target_info.GetBuildProp("ro.build.version.release")
   build_id = target_info.GetBuildProp("ro.build.id")
   build_date = target_info.GetBuildProp("org.freaky.build_date")
@@ -832,7 +831,6 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   maintainer = target_info.GetBuildProp("ro.build.user")
   sdkver = target_info.GetBuildProp("ro.build.version.sdk")
   osname = target_info.GetBuildProp("org.build.osname")
-  osver = target_info.GetBuildProp("org.freaky.build_version")
 
   script.Print("                                        ");
   script.Print(" (                             )  (     ");
@@ -850,7 +848,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   script.Print("             STILL ALIVE !              ");
   script.Print(" ############### INFO ###############             "               );
   script.Print(" OS Name: %s"%(osname)                                            );
-  script.Print(" OS Version: %s"%(osver)                                          );
+  script.Print(" OS Version: %s"%(freaky_ver)                                          );
   script.Print(" Build Type: %s"%(buildtype)                                      );
   script.Print(" Build id: %s"%(build_id)                                         );
   script.Print(" Android Version: %s"%(android_version)                           );
