@@ -5051,7 +5051,7 @@ freaky: otapackage
 	echo -e ${CL_RED}"          ░        ░  ░     ░  ░░  ░    ░ ░         ░ ░        ░   "${CL_RED}
 	echo -e ${CL_CYN}"                                        ░ ░                        "${CL_RST}
 	@echo -e ${CL_RED} "                         Why  So  Serious?      " ${CL_RED}
-	@echo -e ${CL_CYN} "                        #  Still  Alive  #      " ${CL_RST}
+	@echo -e ${CL_CYN} "                        #  Never    Dead  #      " ${CL_RST}
 	@echo -e ""
 	@echo -e ${CL_YLW} "   Hold Your Pants Nigga and Get Freaky With The FreakyOS!!  " ${CL_YLW}
 	@echo -e ${CL_RST} "" ${CL_RST}

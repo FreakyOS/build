@@ -845,7 +845,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   script.Print("             By THE FREAKS              ");
   script.Print("                                        ");
   script.Print("            WHY SO SERIOUS ?            ");
-  script.Print("             STILL ALIVE !              ");
+  script.Print("             NEVER  DEAD !              ");
   script.Print(" ############### INFO ###############             "               );
   script.Print(" OS Name: %s"%(osname)                                            );
   script.Print(" OS Version: %s"%(freaky_ver)                                          );
