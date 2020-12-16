@@ -601,10 +601,10 @@ function print_lunch_menu()
     echo "█      █  █  █▄   ▄▀ █  █ █  █     █    ▀████  ▀▄▄▄▄▀    "
     echo " █       █   ▀███▀      █   █    ▄▀                      "
     echo "  ▀     ▀              █   ▀                             "
-    echo ""                     ▀                                  
+    echo "                      ▀                                  "
     echo ""
     echo "          Why  So  Serious?      "
-    echo "         #  Still  Alive  #      "
+    echo "         #  Never    Dead  #      "
     echo ""
 
     tput sgr0;
